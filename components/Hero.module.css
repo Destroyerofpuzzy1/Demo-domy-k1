@@ -1,0 +1,282 @@
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-top: 104px;
+  overflow: hidden;
+}
+
+/* Na telefonie hero nie rozciąga się na cały ekran — zdjęcie ma być widoczne
+   zaraz pod przyciskami, bez przewijania o pełną wysokość. */
+@media (min-width: 900px) {
+  .hero {
+    min-height: clamp(580px, 84svh, 820px);
+  }
+}
+
+/* Kurtyna wejściowa — znika po sekwencji startowej. */
+.cover {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  background: var(--graphite);
+  transform-origin: top center;
+  pointer-events: none;
+}
+
+.grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: end;
+}
+
+@media (min-width: 900px) {
+  .hero {
+    padding-top: 92px;
+  }
+  .grid {
+    grid-template-columns: minmax(0, 1fr) clamp(480px, 50vw, 900px);
+    gap: clamp(32px, 3.5vw, 56px);
+    align-items: stretch;
+  }
+}
+
+/* --- kolumna tekstowa --- */
+
+.copy {
+  padding-inline: var(--gutter);
+  padding-block: clamp(14px, 3vh, 36px) clamp(22px, 3.5vh, 44px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(22px, 3.5vh, 44px);
+  max-width: var(--shell);
+  margin-left: auto;
+  width: 100%;
+}
+
+@media (min-width: 900px) {
+  .copy {
+    padding-inline: max(var(--gutter), calc((100vw - var(--shell)) / 2 + var(--gutter)));
+    padding-right: 0;
+  }
+}
+
+.eyebrowRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.eyebrow {
+  white-space: nowrap;
+}
+
+.eyebrowLine {
+  flex: 1;
+  height: 1px;
+  background: var(--rule-strong);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.tick {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--accent);
+  flex: none;
+  opacity: 0;
+}
+
+.title {
+  font-size: clamp(2.5rem, 4.4vw, 4.5rem);
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+  text-transform: uppercase;
+  text-wrap: balance;
+  max-width: 13ch;
+  margin-top: clamp(20px, 4vh, 44px);
+}
+
+@media (max-width: 899px) {
+  .title {
+    font-size: clamp(2.5rem, 11.5vw, 4rem);
+    max-width: 11ch;
+  }
+}
+
+.line {
+  display: block;
+  overflow: hidden;
+}
+
+.line > span {
+  display: block;
+  transform: translateY(105%);
+}
+
+.support {
+  font-size: clamp(1.0625rem, 1.3vw, 1.3125rem);
+  line-height: 1.45;
+  color: var(--fg-muted);
+  max-width: 30ch;
+  margin-top: clamp(18px, 2.5vh, 26px);
+  text-wrap: pretty;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: clamp(22px, 3vh, 32px);
+}
+
+.scope {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  padding-top: clamp(18px, 2.5vh, 26px);
+  border-top: 1px solid var(--rule);
+}
+
+.scope i {
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--warm-gray);
+  display: block;
+}
+
+/* --- fotografia --- */
+
+.media {
+  position: relative;
+  min-height: 56vh;
+  clip-path: inset(0 0 100% 0);
+}
+
+@media (min-width: 900px) {
+  .media {
+    min-height: 0;
+    margin-bottom: clamp(28px, 5vh, 56px);
+  }
+}
+
+.mediaInner {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--warm-gray);
+}
+
+.mediaInner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 52% 42%;
+  filter: saturate(0.88) contrast(1.04);
+  transform: scale(1.035);
+  will-change: transform;
+}
+
+.mediaInner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(200deg, rgba(34, 30, 27, 0.14), rgba(169, 82, 53, 0.06) 55%);
+  pointer-events: none;
+}
+
+/* Podpis zdjęcia — jak opis na rysunku technicznym. */
+.caption {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  background: var(--off-white);
+  opacity: 0;
+}
+
+.caption b {
+  font-family: var(--font-mono);
+  font-size: var(--step-label);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: var(--fg);
+}
+
+.caption i {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--accent);
+  display: block;
+}
+
+/* Pionowa linia wymiarowa przy krawędzi zdjęcia. */
+.dimension {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .dimension {
+    display: block;
+    position: absolute;
+    left: -1px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--rule-strong);
+    transform: scaleY(0);
+    transform-origin: top center;
+    z-index: 2;
+  }
+  .dimension::before,
+  .dimension::after {
+    content: "";
+    position: absolute;
+    left: -4px;
+    width: 9px;
+    height: 1px;
+    background: var(--rule-strong);
+  }
+  .dimension::before {
+    top: 0;
+  }
+  .dimension::after {
+    bottom: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cover {
+    display: none;
+  }
+  .media {
+    clip-path: none;
+  }
+  .mediaInner img {
+    transform: none;
+  }
+  .line > span {
+    transform: none;
+  }
+  .eyebrowLine,
+  .dimension {
+    transform: none;
+  }
+  .tick,
+  .caption {
+    opacity: 1;
+  }
+}
