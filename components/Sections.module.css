@@ -870,7 +870,6 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
   gap: clamp(20px, 2.4vw, 36px);
   padding-bottom: clamp(30px, 3.4vw, 48px);
 }
@@ -914,101 +913,11 @@
   margin-bottom: 6px;
 }
 
-.revControls {
-  display: flex;
-  align-items: center;
-  gap: clamp(12px, 1.4vw, 20px);
-}
-
-.revHint {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 0;
-  font-size: 0.75rem;
-  letter-spacing: 0.01em;
-  color: var(--fg-faint);
-  white-space: nowrap;
-  transition: color 220ms var(--ease-out);
-}
-
-.revHint i {
-  width: 6px;
-  height: 6px;
-  border-radius: 999px;
-  background: var(--accent);
-  flex: none;
-  transition:
-    background-color 220ms var(--ease-out),
-    box-shadow 220ms var(--ease-out);
-}
-
-.revHint[aria-pressed="true"] i {
-  background: transparent;
-  box-shadow: inset 0 0 0 1px currentColor;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .revHint:hover {
-    color: var(--fg);
-  }
-}
-
-@media (max-width: 559px) {
-  .revHint {
-    display: none;
-  }
-}
-
-.revNav {
-  display: flex;
-  gap: 8px;
-}
-
-.revNav button {
-  width: 50px;
-  height: 50px;
-  border: 1px solid var(--rule-strong);
-  border-radius: 999px;
-  display: grid;
-  place-items: center;
-  font-size: 1rem;
-  transition:
-    background-color 240ms var(--ease-out),
-    opacity 240ms var(--ease-out),
-    transform 160ms var(--ease-out);
-}
-
-.revNav button:active {
-  transform: scale(0.95);
-}
-
-.revNav button:disabled {
-  opacity: 0.3;
-  cursor: default;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .revNav button:not(:disabled):hover {
-    background: var(--graphite);
-    color: var(--white);
-    border-color: var(--graphite);
-  }
-}
-
 .revRail {
   position: relative;
   overflow: hidden;
   padding-inline: var(--gutter);
   padding-block: 2px 10px;
-  cursor: pointer;
-  -webkit-user-select: none;
-  user-select: none;
-  /* Pionowy scroll strony zostaje natywny — taśma nie przechwytuje gestu. */
-  touch-action: pan-y;
-  /* Szeroka, łagodna maska: karty wyłaniają się i znikają, bez widocznego gradientu. */
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
-  mask-image: linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
 }
 
 @media (min-width: 1600px) {
@@ -1017,39 +926,68 @@
   }
 }
 
-/* Po zatrzymaniu krawędzie się wyostrzają — skrajne opinie są w pełni czytelne. */
-.revRail[data-paused="true"] {
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 2.5%, #000 97.5%, transparent 100%);
-  mask-image: linear-gradient(90deg, transparent 0%, #000 2.5%, #000 97.5%, transparent 100%);
+/* Miękkie krawędzie jako wąskie nakładki, a nie maska na całej ruchomej
+   warstwie — maska kazałaby przeglądarce rasteryzować cały tor co klatkę. */
+.revRail::before,
+.revRail::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(24px, 6vw, 110px);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.revRail::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--bg), rgba(242, 239, 232, 0));
+}
+
+.revRail::after {
+  right: 0;
+  background: linear-gradient(270deg, var(--bg), rgba(242, 239, 232, 0));
 }
 
 .revTrack {
   display: flex;
-  gap: 20px;
   width: max-content;
   will-change: transform;
+  animation: revMarquee 120s linear infinite;
 }
 
 .revGroup {
   display: flex;
-  gap: 20px;
   flex: none;
 }
 
-/* Ograniczony ruch: zwykły, przewijalny rząd kart zamiast animacji. */
-.revRail[data-reduced="true"] {
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  scroll-padding-left: var(--gutter);
-  cursor: default;
-  touch-action: auto;
-  -webkit-mask-image: none;
-  mask-image: none;
+/* Ruch w prawo: -50% szerokości toru to równo jedna grupa kart. */
+@keyframes revMarquee {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
 }
 
-.revRail[data-reduced="true"] .revGroup + .revGroup {
-  display: none;
+/* Ograniczony ruch: zwykły, przewijalny rząd kart zamiast animacji. */
+@media (prefers-reduced-motion: reduce) {
+  .revTrack {
+    animation: none;
+    width: auto;
+  }
+  .revGroup + .revGroup {
+    display: none;
+  }
+  .revRail {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .revRail::before,
+  .revRail::after {
+    display: none;
+  }
 }
 
 .revRail::-webkit-scrollbar {
@@ -1059,8 +997,7 @@
 .revCard {
   flex: none;
   width: min(430px, 86vw);
-  scroll-snap-align: start;
-  margin: 0;
+  margin: 0 20px 0 0;
   padding: clamp(22px, 2.2vw, 30px);
   border: 1px solid var(--rule);
   border-radius: 4px;

@@ -1,9 +1,4 @@
-"use client";
-
-import { useCallback, useLayoutEffect, useRef, useState } from "react";
-import { gsap } from "gsap";
 import { site } from "@/lib/site";
-import { prefersReducedMotion } from "./Motion";
 import s from "./Sections.module.css";
 
 /* ------------------------------------------------------------------
@@ -43,11 +38,6 @@ const REVIEWS = [
   },
 ];
 
-/* Prędkość przewijania taśmy w px/s. Wolno, żeby dało się czytać w locie. */
-const SPEED_DESKTOP = 26;
-const SPEED_MOBILE = 20;
-const TAP_SLOP = 10;
-
 function Stars() {
   return (
     <span className={s.revStars} aria-hidden="true">
@@ -69,116 +59,11 @@ function Card({ r }: { r: { name: string; text: string } }) {
   );
 }
 
+/* Taśma jedzie samą animacją CSS — bez JS-a, bez stanu i bez handlerów.
+   Dwie identyczne grupy kart; przesunięcie o -50% szerokości toru to dokładnie
+   jedna grupa, więc powrót pętli jest niewidoczny. Odstęp siedzi w marginesie
+   karty (nie w gap), dzięki czemu tor ma równo dwukrotność szerokości grupy. */
 export default function Reviews() {
-  const railRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const groupRef = useRef<HTMLDivElement>(null);
-
-  const loopRef = useRef<gsap.core.Timeline | null>(null);
-  const stepRef = useRef(1);           // ile sekund osi czasu to jedna karta
-  const pausedRef = useRef(false);
-  const pointer = useRef({ x: 0, y: 0, t: 0, moved: false });
-
-  const [paused, setPaused] = useState(false);
-  const [reduced, setReduced] = useState(false);
-
-  /* Jedna pętla dla całej taśmy. Dwie identyczne grupy kart: przesunięcie
-     o szerokość grupy wygląda dokładnie tak samo jak pozycja startowa,
-     więc powrót pętli jest niewidoczny. */
-  useLayoutEffect(() => {
-    if (prefersReducedMotion()) {
-      setReduced(true);
-      return;
-    }
-
-    const track = trackRef.current;
-    const group = groupRef.current;
-    if (!track || !group) return;
-
-    const build = (keep = 0) => {
-      loopRef.current?.kill();
-
-      const gap = parseFloat(getComputedStyle(track).columnGap) || 20;
-      const half = group.offsetWidth + gap;
-      const card = group.querySelector<HTMLElement>("figure");
-      const speed = window.innerWidth < 760 ? SPEED_MOBILE : SPEED_DESKTOP;
-      const duration = half / speed;
-
-      stepRef.current = ((card?.offsetWidth ?? 420) + gap) / speed;
-
-      const tl = gsap.timeline({ repeat: -1, defaults: { ease: "none" } });
-      tl.fromTo(track, { x: -half }, { x: 0, duration });
-
-      // Start w głębi pętli — strzałki mogą cofać taśmę bez odbijania się od zera.
-      tl.totalTime(duration * 20 + keep * duration);
-      if (pausedRef.current) tl.pause();
-
-      loopRef.current = tl;
-    };
-
-    build();
-
-    let raf = 0;
-    const ro = new ResizeObserver(() => {
-      window.cancelAnimationFrame(raf);
-      raf = window.requestAnimationFrame(() => build(loopRef.current?.progress() ?? 0));
-    });
-    ro.observe(group);
-
-    return () => {
-      ro.disconnect();
-      window.cancelAnimationFrame(raf);
-      loopRef.current?.kill();
-      loopRef.current = null;
-    };
-  }, []);
-
-  const toggle = useCallback(() => {
-    const tl = loopRef.current;
-    if (!tl) return;
-    const next = !pausedRef.current;
-    pausedRef.current = next;
-    setPaused(next);
-    // Wznowienie idzie z bieżącej pozycji — pętla nie startuje od nowa.
-    if (next) tl.pause();
-    else tl.play();
-  }, []);
-
-  /* Tap, nie hover. Ruch palcem po ekranie to przewijanie strony, nie pauza. */
-  const onPointerDown = (e: React.PointerEvent) => {
-    pointer.current = { x: e.clientX, y: e.clientY, t: Date.now(), moved: false };
-  };
-  const onPointerMove = (e: React.PointerEvent) => {
-    const p = pointer.current;
-    if (Math.abs(e.clientX - p.x) > TAP_SLOP || Math.abs(e.clientY - p.y) > TAP_SLOP) {
-      p.moved = true;
-    }
-  };
-  const onPointerUp = () => {
-    const p = pointer.current;
-    if (!p.moved && Date.now() - p.t < 700) toggle();
-  };
-
-  /* Strzałki przesuwają taśmę o mniej więcej jedną kartę, nie przerywając pętli. */
-  const nudge = (dir: 1 | -1) => {
-    const tl = loopRef.current;
-    if (!tl) {
-      railRef.current?.scrollBy({ left: dir * 420, behavior: "smooth" });
-      return;
-    }
-    const wasPaused = pausedRef.current;
-    tl.pause();
-    gsap.to(tl, {
-      totalTime: tl.totalTime() + dir * stepRef.current,
-      duration: 0.7,
-      ease: "power2.inOut",
-      overwrite: true,
-      onComplete: () => {
-        if (!wasPaused) tl.play();
-      },
-    });
-  };
-
   return (
     <section className={`${s.section} ${s.reviews}`} id="opinie" aria-labelledby="opinie-tytul">
       <div className="shell">
@@ -203,43 +88,12 @@ export default function Reviews() {
               Opinie klientów
             </span>
           </div>
-
-          <div className={s.revControls} data-reveal="" data-delay="90">
-            {!reduced && (
-              <button
-                type="button"
-                className={s.revHint}
-                onClick={toggle}
-                aria-pressed={paused}
-              >
-                <i aria-hidden="true" />
-                {paused ? "Kliknij, aby wznowić" : "Kliknij, aby zatrzymać"}
-              </button>
-            )}
-            <div className={s.revNav}>
-              <button type="button" onClick={() => nudge(-1)} aria-label="Cofnij opinie">
-                ←
-              </button>
-              <button type="button" onClick={() => nudge(1)} aria-label="Przesuń opinie dalej">
-                →
-              </button>
-            </div>
-          </div>
         </div>
       </div>
 
-      <div
-        className={s.revRail}
-        ref={railRef}
-        data-paused={paused}
-        data-reduced={reduced}
-        data-lenis-prevent=""
-        onPointerDown={reduced ? undefined : onPointerDown}
-        onPointerMove={reduced ? undefined : onPointerMove}
-        onPointerUp={reduced ? undefined : onPointerUp}
-      >
-        <div className={s.revTrack} ref={trackRef}>
-          <div className={s.revGroup} ref={groupRef}>
+      <div className={s.revRail}>
+        <div className={s.revTrack}>
+          <div className={s.revGroup}>
             {REVIEWS.map((r) => (
               <Card key={r.name} r={r} />
             ))}
