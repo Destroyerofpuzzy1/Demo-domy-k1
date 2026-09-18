@@ -847,19 +847,32 @@
   overflow: hidden;
 }
 
-.revTop {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: clamp(24px, 3vw, 44px);
-  align-items: end;
-  padding-bottom: clamp(30px, 3.4vw, 48px);
+.revTitle {
+  font-size: clamp(2.125rem, 4.6vw, 4.5rem);
+  line-height: 1;
+  max-width: 16ch;
+  margin-top: clamp(6px, 1vw, 14px);
+  margin-bottom: clamp(34px, 4.4vw, 68px);
 }
 
-@media (min-width: 860px) {
-  .revTop {
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: clamp(36px, 5vw, 88px);
+@media (max-width: 639px) {
+  .revTitle {
+    font-size: clamp(2rem, 8.6vw, 2.75rem);
+    max-width: 14ch;
   }
+  /* Na wąskim ekranie tekst łamie się sam — twardy podział nie jest potrzebny. */
+  .revTitle br {
+    display: none;
+  }
+}
+
+.revTop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(20px, 2.4vw, 36px);
+  padding-bottom: clamp(30px, 3.4vw, 48px);
 }
 
 .revScore {
@@ -901,12 +914,50 @@
   margin-bottom: 6px;
 }
 
-.revIntro {
+.revControls {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 20px;
+  align-items: center;
+  gap: clamp(12px, 1.4vw, 20px);
+}
+
+.revHint {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.01em;
+  color: var(--fg-faint);
+  white-space: nowrap;
+  transition: color 220ms var(--ease-out);
+}
+
+.revHint i {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--accent);
+  flex: none;
+  transition:
+    background-color 220ms var(--ease-out),
+    box-shadow 220ms var(--ease-out);
+}
+
+.revHint[aria-pressed="true"] i {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px currentColor;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .revHint:hover {
+    color: var(--fg);
+  }
+}
+
+@media (max-width: 559px) {
+  .revHint {
+    display: none;
+  }
 }
 
 .revNav {
@@ -946,21 +997,59 @@
 }
 
 .revRail {
-  display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
+  position: relative;
+  overflow: hidden;
   padding-inline: var(--gutter);
-  padding-bottom: 6px;
-  scroll-padding-left: var(--gutter);
+  padding-block: 2px 10px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  /* Pionowy scroll strony zostaje natywny — taśma nie przechwytuje gestu. */
+  touch-action: pan-y;
+  /* Szeroka, łagodna maska: karty wyłaniają się i znikają, bez widocznego gradientu. */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 9%, #000 91%, transparent 100%);
 }
 
 @media (min-width: 1600px) {
   .revRail {
     padding-inline: calc((100vw - var(--shell)) / 2 + var(--gutter));
-    scroll-padding-left: calc((100vw - var(--shell)) / 2 + var(--gutter));
   }
+}
+
+/* Po zatrzymaniu krawędzie się wyostrzają — skrajne opinie są w pełni czytelne. */
+.revRail[data-paused="true"] {
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 2.5%, #000 97.5%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 2.5%, #000 97.5%, transparent 100%);
+}
+
+.revTrack {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  will-change: transform;
+}
+
+.revGroup {
+  display: flex;
+  gap: 20px;
+  flex: none;
+}
+
+/* Ograniczony ruch: zwykły, przewijalny rząd kart zamiast animacji. */
+.revRail[data-reduced="true"] {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  scroll-padding-left: var(--gutter);
+  cursor: default;
+  touch-action: auto;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.revRail[data-reduced="true"] .revGroup + .revGroup {
+  display: none;
 }
 
 .revRail::-webkit-scrollbar {
@@ -969,7 +1058,7 @@
 
 .revCard {
   flex: none;
-  width: min(430px, 82vw);
+  width: min(430px, 86vw);
   scroll-snap-align: start;
   margin: 0;
   padding: clamp(22px, 2.2vw, 30px);
