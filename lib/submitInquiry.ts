@@ -18,9 +18,7 @@
 export type Inquiry = {
   name: string;
   phone: string;
-  email: string;
   scope: string;
-  message: string;
 };
 
 export type InquiryResult =
@@ -56,10 +54,9 @@ export function buildMailto(data: Inquiry, to: string) {
   const body = [
     `Imię: ${data.name}`,
     `Telefon: ${data.phone}`,
-    `E-mail: ${data.email}`,
-    `Co budujemy: ${data.scope}`,
     "",
-    data.message,
+    "Co chcę zbudować:",
+    data.scope,
   ].join("\n");
   return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }

@@ -9,20 +9,20 @@ const SERVICES = [
   {
     name: "Fundamenty",
     copy: "Robimy fundamenty pod dom.",
-    src: "/assets/8.jpg",
-    alt: "Gotowe ławy i ściany fundamentowe pod dom jednorodzinny.",
+    src: "/assets/13.jpg",
+    alt: "Przygotowany podkład i szalunek pod płytę fundamentową.",
   },
   {
     name: "Ściany",
-    copy: "Stawiamy ściany domu.",
-    src: "/assets/10.jpg",
-    alt: "Murarz układa pustak na zaprawie podczas budowy ściany.",
+    copy: "Murujemy ściany.",
+    src: "/assets/19.jpg",
+    alt: "Wymurowane ściany domu z pustaków ceramicznych.",
   },
   {
     name: "Stropy",
     copy: "Robimy stropy.",
-    src: "/assets/1.jpg",
-    alt: "Strop betonowy podparty stemplami na budowie domu.",
+    src: "/assets/18.jpg",
+    alt: "Drewniane belki stropowe ułożone na ścianach domu.",
   },
   {
     name: "Schody",
@@ -34,13 +34,13 @@ const SERVICES = [
     name: "Kominy",
     copy: "Budujemy kominy.",
     src: "/assets/12.jpg",
-    alt: "Dwa murowane kominy nad dachem domu.",
+    alt: "Murowane kominy nad dachem domu.",
   },
   {
-    name: "Dach",
-    copy: "Robimy konstrukcję dachu.",
-    src: "/assets/9.jpg",
-    alt: "Drewniana więźba dachowa domu jednorodzinnego.",
+    name: "Stan surowy",
+    copy: "Budujemy dom do stanu surowego.",
+    src: "/assets/realization3.png",
+    alt: "Dom w stanie surowym z murowanymi ścianami i gotowym dachem.",
   },
 ];
 
@@ -51,9 +51,9 @@ export default function WhatWeBuild() {
     <section className={s.section} id="zakres">
       <div className="shell">
         <SectionHead
-          no="02 — Zakres"
+          no="03 — Zakres"
           title="Co robimy."
-          text="Robimy całość albo pojedyncze etapy."
+          text="Domy jednorodzinne i bliźniaki. Robimy całość albo pojedyncze etapy."
         />
 
         <div className={s.buildWrap}>

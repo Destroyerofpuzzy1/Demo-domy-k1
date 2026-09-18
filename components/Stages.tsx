@@ -7,41 +7,42 @@ import SectionHead from "./SectionHead";
 import { prefersReducedMotion } from "./Motion";
 import s from "./Sections.module.css";
 
+/* Prawdziwe zdjęcia z jednej budowy, w kolejności powstawania domu. */
 const STAGES = [
   {
     no: "01",
-    name: "Fundamenty",
-    copy: "Robimy fundamenty pod dom.",
-    src: "/assets/8.jpg",
-    alt: "Gotowe ławy i ściany fundamentowe pod dom jednorodzinny.",
+    name: "Fundament",
+    copy: "Zaczynamy od podstaw.",
+    src: "/assets/13.jpg",
+    alt: "Przygotowany podkład z piasku i szalunek pod płytę fundamentową.",
   },
   {
     no: "02",
-    name: "Ściany",
-    copy: "Stawiamy ściany domu.",
-    src: "/assets/10.jpg",
-    alt: "Murarz układa pustak na zaprawie podczas budowy ściany.",
+    name: "Zbrojenie",
+    copy: "Układamy zbrojenie.",
+    src: "/assets/15.jpg",
+    alt: "Siatka zbrojeniowa i niebieskie rury ułożone przed wylaniem betonu.",
   },
   {
     no: "03",
-    name: "Stropy",
-    copy: "Robimy stropy.",
-    src: "/assets/1.jpg",
-    alt: "Strop betonowy podparty stemplami na budowie domu.",
+    name: "Beton",
+    copy: "Wylewamy płytę.",
+    src: "/assets/16.jpg",
+    alt: "Świeżo wylana płyta betonowa na przygotowanym fundamencie.",
   },
   {
     no: "04",
-    name: "Dach",
-    copy: "Robimy konstrukcję dachu.",
-    src: "/assets/9.jpg",
-    alt: "Drewniana więźba dachowa domu jednorodzinnego.",
+    name: "Ściany",
+    copy: "Murujemy ściany.",
+    src: "/assets/19.jpg",
+    alt: "Wymurowane ściany domu z pustaków ceramicznych, widok z góry.",
   },
   {
     no: "05",
-    name: "Stan surowy",
-    copy: "Dom ma ściany i dach.",
-    src: "/assets/realization3.png",
-    alt: "Dom w stanie surowym z murowanymi ścianami i gotowym dachem.",
+    name: "Strop",
+    copy: "Robimy kolejny poziom.",
+    src: "/assets/18.jpg",
+    alt: "Drewniane belki stropowe ułożone na ścianach budowanego domu.",
   },
 ];
 
@@ -71,29 +72,36 @@ export default function Stages() {
 
     const forward = active > from;
     const hidden = forward ? "inset(0% 0% 0% 100%)" : "inset(0% 100% 0% 0%)";
+    const D = 0.8;
 
     const tl = gsap.timeline();
     tl.set(outgoing, { zIndex: 1, autoAlpha: 1 })
       .set(incoming, { zIndex: 2, autoAlpha: 1, clipPath: hidden })
-      .fromTo(
-        incoming.querySelector("img"),
-        { scale: 1.06 },
-        { scale: 1, duration: 1.15, ease: "power2.out" },
+      // Stare zdjęcie delikatnie odpływa: minimalne powiększenie, lekkie rozmycie.
+      .to(
+        outgoing.querySelector("img"),
+        { scale: 1.015, filter: "blur(3px)", duration: D, ease: "power2.inOut" },
         0,
       )
-      .to(incoming, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.95, ease: "power3.inOut" }, 0);
+      // Nowe wjeżdża spod maski i osiada.
+      .fromTo(
+        incoming.querySelector("img"),
+        { scale: 1.025, filter: "blur(0px)" },
+        { scale: 1, duration: D * 1.35, ease: "power2.out" },
+        0,
+      )
+      .to(incoming, { clipPath: "inset(0% 0% 0% 0%)", duration: D, ease: "power3.inOut" }, 0);
 
     if (wipeRef.current) {
       tl.set(wipeRef.current, { opacity: 1, left: forward ? "100%" : "0%" }, 0)
-        .to(
-          wipeRef.current,
-          { left: forward ? "0%" : "100%", duration: 0.95, ease: "power3.inOut" },
-          0,
-        )
-        .to(wipeRef.current, { opacity: 0, duration: 0.2 }, 0.9);
+        .to(wipeRef.current, { left: forward ? "0%" : "100%", duration: D, ease: "power3.inOut" }, 0)
+        .to(wipeRef.current, { opacity: 0, duration: 0.18 }, D - 0.06);
     }
 
-    tl.set(outgoing, { autoAlpha: 0, zIndex: 0 });
+    tl.set(outgoing, { autoAlpha: 0, zIndex: 0 }).set(outgoing.querySelector("img"), {
+      scale: 1,
+      filter: "blur(0px)",
+    });
 
     return () => {
       tl.kill();
@@ -106,15 +114,15 @@ export default function Stages() {
     <section className={s.section} id="etapy">
       <div className="shell">
         <SectionHead
-          no="01 — Etapy"
+          no="01 — Budowa"
           title={
             <>
-              Etapy
+              Tak powstaje
               <br />
-              budowy.
+              dom.
             </>
           }
-          text="Od fundamentów do dachu."
+          text="Od fundamentów do ścian i stropu. Zdjęcia z naszej budowy."
         />
 
         <div className={s.stages}>
@@ -138,8 +146,8 @@ export default function Stages() {
                   src={stage.src}
                   alt={stage.alt}
                   fill
-                  sizes="(max-width: 979px) 100vw, 55vw"
-                  quality={80}
+                  sizes="(max-width: 979px) 100vw, 56vw"
+                  quality={84}
                 />
               </div>
             ))}

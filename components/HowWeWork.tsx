@@ -9,25 +9,25 @@ const STEPS = [
   {
     no: "01",
     title: "Sprawdzamy projekt",
-    copy: "Patrzymy, co jest do zrobienia.",
+    copy: "Wiemy, co trzeba zrobić.",
     focus: { x: 32, y: 36 },
   },
   {
     no: "02",
-    title: "Ustalamy prace",
-    copy: "Ustalamy zakres i kolejność.",
+    title: "Ustalamy zakres",
+    copy: "Ustalamy robotę i kolejność.",
     focus: { x: 60, y: 48 },
   },
   {
     no: "03",
     title: "Budujemy",
-    copy: "Robimy kolejne etapy domu.",
+    copy: "Robimy dom krok po kroku.",
     focus: { x: 46, y: 64 },
   },
   {
     no: "04",
     title: "Sprawdzamy",
-    copy: "Na końcu sprawdzamy wykonanie.",
+    copy: "Kontrolujemy wykonanie.",
     focus: { x: 70, y: 28 },
   },
 ];
@@ -40,7 +40,7 @@ export default function HowWeWork() {
     <section className={s.section} id="jak-pracujemy">
       <div className="shell">
         <SectionHead
-          no="03 — Jak pracujemy"
+          no="04 — Jak pracujemy"
           title={
             <>
               Krok
@@ -54,10 +54,10 @@ export default function HowWeWork() {
         <div className={s.workWrap}>
           <div className={s.workMedia} data-mask="">
             <Image
-              src="/assets/realization.png"
-              alt="Dom jednorodzinny w budowie, z gotową konstrukcją dachu."
-              width={1539}
-              height={1022}
+              src="/assets/14.jpg"
+              alt="Plac budowy z przygotowanym fundamentem i materiałem przed murowaniem."
+              width={1067}
+              height={800}
               sizes="(max-width: 979px) 100vw, 46vw"
               quality={86}
               style={{

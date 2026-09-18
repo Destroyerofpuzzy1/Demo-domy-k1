@@ -9,9 +9,9 @@
   padding: 0.85em 1.4em;
   border: 1px solid var(--rule-strong);
   border-radius: 999px;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.6875rem;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.075em;
   text-transform: uppercase;
   transition:
     background-color 240ms var(--ease-out),
@@ -77,10 +77,10 @@
 }
 
 .block h2 em {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-style: normal;
   font-size: 0.6875rem;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.075em;
   color: var(--accent);
 }
 

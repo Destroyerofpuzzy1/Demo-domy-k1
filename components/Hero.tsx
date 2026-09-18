@@ -104,17 +104,17 @@ export default function Hero() {
 
             <h1 className={s.title}>
               <span className={s.line}>
-                <span>Budujemy</span>
+                <span>Budujemy domy.</span>
               </span>
               <span className={s.line}>
-                <span>domy.</span>
+                <span>Od fundamentów.</span>
               </span>
             </h1>
 
             <p className={s.support}>
-              Od fundamentów do dachu.
+              Domy jednorodzinne i bliźniaki.
               <br />
-              Budujemy domy jednorodzinne i bliźniaki.
+              Warszawa i okolice.
             </p>
 
             <div className={s.actions}>
@@ -128,6 +128,18 @@ export default function Hero() {
               <a className="btn btn--ghost" href="#realizacje">
                 Zobacz realizacje
               </a>
+            </div>
+
+            <div className={s.trust}>
+              <span className={s.stars} aria-hidden="true">
+                ★★★★★
+              </span>
+              <span className={s.trustScore}>5,0</span>
+              <span className={s.trustDivider} aria-hidden="true" />
+              <span className={s.trustMeta}>
+                <b>Google</b>
+                <span>Opinie klientów</span>
+              </span>
             </div>
           </div>
 
@@ -149,7 +161,7 @@ export default function Hero() {
               fill
               priority
               fetchPriority="high"
-              sizes="(max-width: 899px) 100vw, 50vw"
+              sizes="(max-width: 899px) 100vw, 58vw"
               quality={82}
             />
           </div>

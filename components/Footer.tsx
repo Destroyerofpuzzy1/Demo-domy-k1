@@ -2,9 +2,9 @@ import { site } from "@/lib/site";
 import s from "./Sections.module.css";
 
 const LINKS = [
-  { label: "Co robimy", href: "/#zakres" },
-  { label: "Jak pracujemy", href: "/#jak-pracujemy" },
   { label: "Realizacje", href: "/#realizacje" },
+  { label: "Zakres", href: "/#zakres" },
+  { label: "Opinie", href: "/#opinie" },
   { label: "Kontakt", href: "/#kontakt" },
   { label: "Polityka prywatności", href: "/polityka-prywatnosci" },
 ];
@@ -32,6 +32,9 @@ export default function Footer() {
               <br />
               {site.postalCode} {site.city}
             </p>
+            <a href={site.mapsUrl} target="_blank" rel="noreferrer noopener">
+              Google Maps ↗
+            </a>
           </div>
 
           <div className={`${s.footCol} ${s.footLinks}`}>
@@ -47,7 +50,7 @@ export default function Footer() {
         <div className={s.footBottom}>
           <p>© 2026 Serhii Anatii Homes</p>
           <p>
-            Strona wykonana przez <b>Lead Page</b>
+            Strona przygotowana przez <b>Lead Page</b>
           </p>
         </div>
       </div>

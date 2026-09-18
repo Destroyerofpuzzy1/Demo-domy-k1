@@ -31,24 +31,28 @@
 }
 
 /* Znak firmowy jako trzywierszowa pieczątka — spokojny, ale rozpoznawalny. */
+/* Wordmark: "Serhii Anatii" zwykłą grubością, "Homes" grubo. Dwa wiersze. */
 .mark {
   display: block;
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  line-height: 1.12;
-  letter-spacing: 0.17em;
-  text-transform: uppercase;
+  font-family: var(--font-sans);
+  font-size: clamp(1.0625rem, 1.2vw, 1.25rem);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  text-transform: none;
   color: var(--fg);
-  padding: 4px 0;
+  padding: 2px 0;
+  white-space: nowrap;
+}
+
+.mark i {
+  display: block;
+  font-style: normal;
+  font-weight: 450;
 }
 
 .mark b {
-  font-weight: 400;
   display: block;
-}
-
-.mark span {
-  color: var(--accent);
+  font-weight: 700;
 }
 
 .nav {
@@ -64,9 +68,9 @@
 }
 
 .nav a {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.6875rem;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.075em;
   text-transform: uppercase;
   color: var(--fg-muted);
   padding: 8px 0;
@@ -104,9 +108,9 @@
 
 .phone {
   display: none;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.6875rem;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.075em;
   color: var(--fg-muted);
   transition: color 220ms var(--ease-out);
 }
@@ -262,10 +266,10 @@
 }
 
 .sheetNav em {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-style: normal;
   font-size: 0.625rem;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.075em;
   color: var(--accent);
 }
 
@@ -286,9 +290,9 @@
 }
 
 .sheetFoot span {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.625rem;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.075em;
   text-transform: uppercase;
   color: var(--fg-faint);
 }

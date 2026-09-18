@@ -10,7 +10,8 @@ import WhatWeBuild from "@/components/WhatWeBuild";
 import HowWeWork from "@/components/HowWeWork";
 import Projects from "@/components/Projects";
 import Details from "@/components/Details";
-import Approach from "@/components/Approach";
+import Reviews from "@/components/Reviews";
+import MapSection from "@/components/MapSection";
 import ContactCta from "@/components/ContactCta";
 import Footer from "@/components/Footer";
 
@@ -29,7 +30,8 @@ export default function Home() {
         <HowWeWork />
         <Projects />
         <Details />
-        <Approach />
+        <Reviews />
+        <MapSection />
         <ContactCta />
       </main>
       <Footer />

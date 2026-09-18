@@ -12,7 +12,7 @@ export default function ContactCta() {
     <section className={s.cta} id="kontakt">
       <div className={s.ctaMedia} aria-hidden="true">
         <Image
-          src="/assets/realization.png"
+          src="/assets/14.jpg"
           alt=""
           fill
           loading="lazy"
@@ -23,14 +23,14 @@ export default function ContactCta() {
 
       <div className={`shell ${s.ctaInner}`}>
         <div className={s.headNo}>
-          <b>07 — Kontakt</b>
+          <b>09 — Kontakt</b>
           <i data-line="" aria-hidden="true" />
         </div>
 
         <h2 className={s.ctaTitle} data-reveal="">
-          Chcesz
+          Budujesz dom?
           <br />
-          budować dom?
+          Porozmawiajmy.
         </h2>
 
         <p className={s.ctaText} data-reveal="" data-delay="80">
@@ -48,7 +48,10 @@ export default function ContactCta() {
             </span>
           </button>
           <a className="btn btn--ghostOnDark" href={site.phoneHref}>
-            {site.phoneDisplay}
+            Zadzwoń
+            <span className="arw" aria-hidden="true">
+              ↗
+            </span>
           </a>
         </div>
 

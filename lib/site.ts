@@ -16,14 +16,18 @@ export const site = {
   postalCode: "02-237",
   city: "Warszawa",
   mapsUrl:
-    "https://www.google.com/maps/search/?api=1&query=Serhii+Anatii+Homes+ul.+Instalator%C3%B3w+7%2F164+02-237+Warszawa",
+    "https://www.google.com/maps/place/Budowa+dom%C3%B3w+Serhii+Anatii+Homes/@52.1980525,20.9558814,613m/data=!3m2!1e3!4b1!4m6!3m5!1s0x4719335befad3797:0xcbf4b5365e28b984!8m2!3d52.1980492!4d20.9584617!16s%2Fg%2F11zk3fqm64",
+  mapsEmbedUrl:
+    "https://www.google.com/maps?q=Serhii+Anatii+Homes,+Instalator%C3%B3w+7%2F164,+02-237+Warszawa&z=16&output=embed",
+  rating: "5,0",
   area: "Warszawa i woj. mazowieckie",
   privacyUpdated: "18.09.2026",
 } as const;
 
 export const nav = [
-  { label: "Co robimy", href: "#zakres" },
-  { label: "Jak pracujemy", href: "#jak-pracujemy" },
   { label: "Realizacje", href: "#realizacje" },
+  { label: "Zakres", href: "#zakres" },
+  { label: "Jak pracujemy", href: "#jak-pracujemy" },
+  { label: "Opinie", href: "#opinie" },
   { label: "Kontakt", href: "#kontakt" },
 ] as const;

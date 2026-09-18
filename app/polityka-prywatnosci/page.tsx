@@ -190,9 +190,9 @@ export default function PrivacyPolicy() {
                 zaktualizuj poniższy punkt (patrz lib/submitInquiry.ts). */}
             <Block no="08" title="Formularz kontaktowy">
               <p>
-                Formularz na stronie zbiera imię, telefon, adres e-mail, informację
-                o tym, co chcesz zbudować, oraz treść wiadomości. Wykorzystujemy je
-                wyłącznie do skontaktowania się w sprawie opisanych prac.
+                Formularz na stronie zbiera imię, numer telefonu oraz informację o tym,
+                co chcesz zbudować. Wykorzystujemy je wyłącznie do skontaktowania się
+                w sprawie opisanych prac.
               </p>
               <p>
                 Jeżeli automatyczna wysyłka jest w danym momencie niedostępna, formularz
@@ -206,14 +206,18 @@ export default function PrivacyPolicy() {
             <Block no="09" title="Cookies i pamięć przeglądarki">
               <p>
                 Ta strona nie korzysta z Google Analytics, Meta Pixel, Hotjar ani innych
-                narzędzi analitycznych i reklamowych. Nie zapisujemy plików cookies w celach
-                statystycznych ani marketingowych.
+                narzędzi analitycznych i reklamowych. Nie zapisujemy własnych plików cookies
+                w celach statystycznych ani marketingowych.
               </p>
               <p>
-                Nie stosujemy też własnych plików cookies do śledzenia użytkowników,
-                dlatego nie wyświetlamy banera zgody na cookies. Techniczne dane, takie jak
-                standardowe logi serwera, mogą być przetwarzane przez dostawcę hostingu
-                w celu zapewnienia bezpieczeństwa i poprawnego działania strony.
+                Wyjątkiem jest osadzona mapa Google opisana w punkcie 10 — to jedyny
+                element strony, który może zapisać pliki cookies w Twojej przeglądarce,
+                i robi to dopiero po wczytaniu mapy.
+              </p>
+              <p>
+                Techniczne dane, takie jak standardowe logi serwera, mogą być przetwarzane
+                przez dostawcę hostingu w celu zapewnienia bezpieczeństwa i poprawnego
+                działania strony.
               </p>
               <p>
                 Kroje pisma używane na stronie są serwowane z naszego serwera. Przeglądarka
@@ -221,16 +225,32 @@ export default function PrivacyPolicy() {
               </p>
             </Block>
 
-            <Block no="10" title="Linki zewnętrzne">
+            <Block no="10" title="Mapa Google i linki zewnętrzne">
               <p>
-                Na stronie znajdują się odnośniki do usług zewnętrznych, na przykład do Google
-                Maps. Po kliknięciu takiego odnośnika przechodzisz do serwisu, który działa na
-                własnych zasadach i ma własną politykę prywatności. Nie mamy wpływu na to, jakie
-                dane zbiera.
+                W sekcji z lokalizacją osadzamy mapę Google. Po jej wczytaniu Twoja
+                przeglądarka łączy się z serwerami Google, które mogą otrzymać adres IP,
+                informacje o urządzeniu i przeglądarce oraz zapisać własne pliki cookies.
+                Dzieje się to na zasadach Google, na które nie mamy wpływu.
               </p>
               <p>
-                Celowo nie osadzamy map ani innych komponentów zewnętrznych bezpośrednio na
-                stronie — wybieramy zwykły odnośnik, żeby nie ładować dodatkowych skryptów.
+                Zasady te opisuje polityka prywatności Google:{" "}
+                <a
+                  href="https://policies.google.com/privacy"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  policies.google.com/privacy
+                </a>
+                .
+              </p>
+              <p>
+                Na stronie są też zwykłe odnośniki do usług zewnętrznych, na przykład do
+                wizytówki firmy w Google Maps i do opinii klientów. Po kliknięciu przechodzisz
+                do serwisu, który działa na własnych zasadach i ma własną politykę prywatności.
+              </p>
+              <p>
+                Opinie klientów pokazujemy na stronie jako cytaty z publicznej wizytówki
+                Google. Nie zbieramy przy tym żadnych danych od osób odwiedzających stronę.
               </p>
             </Block>
 

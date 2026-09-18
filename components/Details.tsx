@@ -1,65 +1,63 @@
 import Image from "next/image";
-import SectionHead from "./SectionHead";
 import s from "./Sections.module.css";
 
-const DETAILS = [
+/* Prawdziwe zdjęcia z placu budowy. Podpisy mówią wprost, co widać. */
+const SHOTS = [
   {
     cls: "d1",
-    label: "Fundament",
-    src: "/assets/4.jpg",
-    alt: "Ściana fundamentowa z izolacją, przed zasypaniem wykopu.",
-    w: 711,
-    h: 400,
+    label: "Ściany",
+    src: "/assets/19.jpg",
+    alt: "Wymurowane ściany domu z pustaków ceramicznych, widok z góry.",
+    w: 600,
+    h: 800,
   },
   {
     cls: "d2",
-    label: "Ściana",
-    src: "/assets/10.jpg",
-    alt: "Murarz układa pustak na zaprawie w budowanej ścianie.",
-    w: 599,
-    h: 400,
+    label: "Płyta",
+    src: "/assets/16.jpg",
+    alt: "Świeżo wylana płyta betonowa na przygotowanym fundamencie.",
+    w: 1067,
+    h: 800,
   },
   {
     cls: "d3",
-    label: "Strop",
-    src: "/assets/5.jpg",
-    alt: "Betonowanie stropu na zbrojeniu z siatki stalowej.",
-    w: 600,
-    h: 400,
+    label: "Zbrojenie",
+    src: "/assets/15.jpg",
+    alt: "Siatka zbrojeniowa i rury ułożone przed wylaniem betonu.",
+    w: 1067,
+    h: 800,
   },
   {
     cls: "d4",
-    label: "Dach",
-    src: "/assets/3.jpg",
-    alt: "Wnętrze budowanego domu z drewnianą konstrukcją dachu.",
-    w: 733,
-    h: 400,
+    label: "Strop",
+    src: "/assets/17.jpg",
+    alt: "Belki drewniane oparte na murowanej ścianie budowanego domu.",
+    w: 600,
+    h: 800,
   },
 ] as const;
 
 export default function Details() {
   return (
-    <section className={`${s.section} ${s.sectionDark}`} aria-labelledby="detale-tytul">
+    <section className={`${s.section} ${s.sectionDark}`} aria-labelledby="na-budowie-tytul">
       <div className="shell">
         <div className={s.head}>
           <div>
             <div className={s.headNo}>
-              <b>05 — Budowa</b>
+              <b>06 — Na budowie</b>
               <i data-line="" aria-hidden="true" />
             </div>
-            <h2 className={s.headTitle} id="detale-tytul" data-reveal="">
-              Najpierw
-              <br />
-              dobra podstawa.
+            <h2 className={s.headTitle} id="na-budowie-tytul" data-reveal="">
+              Na budowie.
             </h2>
           </div>
           <p className={s.headText} data-reveal="" data-delay="90">
-            Najpierw fundamenty. Potem reszta domu.
+            Zdjęcia z placu budowy. Bez upiększania.
           </p>
         </div>
 
         <div className={s.detailGrid}>
-          {DETAILS.map((d, i) => (
+          {SHOTS.map((d, i) => (
             <div key={d.label} className={`${s.detailItem} ${s[d.cls]}`}>
               <div className={s.detailFig} data-mask="" data-delay={i * 110}>
                 <Image
@@ -68,8 +66,8 @@ export default function Details() {
                   width={d.w}
                   height={d.h}
                   loading="lazy"
-                  sizes="(max-width: 899px) 50vw, 40vw"
-                  quality={80}
+                  sizes="(max-width: 899px) 50vw, 46vw"
+                  quality={82}
                 />
               </div>
               <p className={s.detailCap} data-reveal="" data-delay={i * 110 + 160}>

@@ -30,15 +30,14 @@
   --header-h: 84px;
 
   /* ---- type ---- */
-  --font-sans: var(--font-geist-sans), "Inter Tight", "Manrope", system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", monospace;
+  --font-sans: var(--font-geist-sans), "Manrope", "Inter Tight", system-ui, sans-serif;
 
   --step-hero: clamp(4.2rem, 7.5vw, 9rem);
   --step-xl: clamp(2.4rem, 4.2vw, 4.25rem);
   --step-lg: clamp(2rem, 3.2vw, 3.1rem);
   --step-md: clamp(1.25rem, 1.5vw, 1.55rem);
   --step-body: clamp(1rem, 1.05vw, 1.125rem);
-  --step-label: 0.6875rem;
+  --step-label: 0.75rem;
 
   /* ---- motion ---- */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
@@ -150,11 +149,11 @@ textarea {
 
 /* Mono annotation layer — the "drawing" voice of the site */
 .label {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--step-label);
-  letter-spacing: 0.16em;
+  letter-spacing: 0.075em;
   text-transform: uppercase;
-  font-weight: 400;
+  font-weight: 500;
   color: var(--fg-muted);
 }
 
@@ -168,9 +167,10 @@ textarea {
 
 /* Section number with terracotta tick, like a drawing callout */
 .sectionNo {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--step-label);
-  letter-spacing: 0.16em;
+  letter-spacing: 0.075em;
+  font-weight: 500;
   color: var(--accent);
 }
 
@@ -205,14 +205,16 @@ textarea {
   display: inline-flex;
   align-items: center;
   gap: 0.75em;
-  padding: 1.0em 1.6em;
+  min-height: 50px;
+  padding: 0 1.75em;
   border-radius: 999px;
   background: var(--btn-bg);
   color: var(--btn-fg);
   border: 1px solid var(--btn-border);
-  font-family: var(--font-mono);
-  font-size: 0.7188rem;
-  letter-spacing: 0.13em;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.055em;
   text-transform: uppercase;
   line-height: 1;
   white-space: nowrap;

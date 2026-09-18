@@ -85,7 +85,7 @@
   border: 1px solid var(--rule-strong);
   display: grid;
   place-items: center;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.8rem;
   transition:
     background-color 200ms var(--ease-out),
@@ -125,9 +125,9 @@
 }
 
 .field > label {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.6875rem;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.075em;
   text-transform: uppercase;
   color: var(--fg-muted);
 }
@@ -173,9 +173,9 @@
 }
 
 .err {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.6875rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   color: var(--terracotta);
 }
 
@@ -190,9 +190,9 @@
   border: 1px solid var(--rule);
   border-radius: 999px;
   background: var(--off-white);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.75rem;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.075em;
   text-transform: uppercase;
   transition:
     background-color 200ms var(--ease-out),
@@ -288,9 +288,9 @@
 }
 
 .directRow span {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.6875rem;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.075em;
   text-transform: uppercase;
   color: var(--fg-faint);
 }
@@ -318,9 +318,9 @@ fieldset.field {
 fieldset.field > legend {
   padding: 0;
   margin-bottom: 7px;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.6875rem;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.075em;
   text-transform: uppercase;
   color: var(--fg-muted);
 }

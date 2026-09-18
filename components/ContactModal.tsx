@@ -31,9 +31,7 @@ export function useContactModal() {
 const EMPTY: Inquiry = {
   name: "",
   phone: "",
-  email: "",
-  scope: "Dom jednorodzinny",
-  message: "",
+  scope: "",
 };
 
 const FOCUSABLE =
@@ -141,9 +139,7 @@ function ContactPanel({ isOpen, close }: { isOpen: boolean; close: () => void })
     const next: Record<string, string> = {};
     if (data.name.trim().length < 2) next.name = "Wpisz imię.";
     if (data.phone.replace(/\D/g, "").length < 9) next.phone = "Wpisz numer telefonu.";
-    if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-      next.email = "Sprawdź adres e-mail.";
-    }
+    if (data.scope.trim().length < 3) next.scope = "Napisz, co chcesz zbudować.";
     const consent = form.elements.namedItem("consent") as HTMLInputElement | null;
     if (!consent?.checked) next.consent = "Zaznacz zgodę, żeby wysłać wiadomość.";
 
@@ -226,42 +222,22 @@ function ContactPanel({ isOpen, close }: { isOpen: boolean; close: () => void })
               />
             </div>
 
-            <Field
-              id={`${uid}-email`}
-              name="email"
-              label="E-mail"
-              type="email"
-              inputMode="email"
-              value={data.email}
-              onChange={set("email")}
-              error={errors.email}
-              autoComplete="email"
-            />
-
             <div className={s.field}>
-              <label htmlFor={`${uid}-scope`}>Co chcesz zbudować?</label>
-              <select
+              <label htmlFor={`${uid}-scope`}>Co chcesz zbudować? *</label>
+              <textarea
                 id={`${uid}-scope`}
                 name="scope"
                 value={data.scope}
+                data-field="scope"
+                aria-invalid={Boolean(errors.scope)}
                 onChange={(e) => set("scope")(e.target.value)}
-              >
-                <option>Dom jednorodzinny</option>
-                <option>Bliźniak</option>
-                <option>Stan surowy</option>
-                <option>Inne</option>
-              </select>
-            </div>
-
-            <div className={s.field}>
-              <label htmlFor={`${uid}-msg`}>Wiadomość</label>
-              <textarea
-                id={`${uid}-msg`}
-                name="message"
-                value={data.message}
-                onChange={(e) => set("message")(e.target.value)}
                 placeholder="Np. dom jednorodzinny, stan surowy."
               />
+              {errors.scope && (
+                <p className={s.err} role="alert">
+                  {errors.scope}
+                </p>
+              )}
             </div>
 
             <div className={s.field}>

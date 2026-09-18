@@ -33,11 +33,8 @@ export default function Header() {
       <header className={s.header} data-stuck={stuck || menu}>
         <div className={`shell ${s.inner}`}>
           <a href="/" className={s.mark} aria-label="Serhii Anatii Homes — strona główna">
-            <b>Serhii</b>
-            <b>Anatii</b>
-            <b>
-              Homes<span aria-hidden="true">.</span>
-            </b>
+            <i>Serhii Anatii</i>
+            <b>Homes</b>
           </a>
 
           <nav className={s.nav} aria-label="Nawigacja główna">
